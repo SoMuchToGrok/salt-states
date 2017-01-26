@@ -1,0 +1,73 @@
+.DS_Store
+*~
+
+*.py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+__pycache__
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+*reports*
+
+# Translations
+*.mo
+
+*.sqlite3
+*.db
+*.rdb
+cache
+
+# PyCharm Files
+.idea
+
+# Vagrant
+.vagrant
+
+# Virtual Env
+api-venv
+
+node_modules
+.idea
+.venv
+.virtualenv
+
+scripts/saltstack/srv
+
+# runtime env configuration
+.env
+
+# CI
+reports
+coverage/
+
+# Compiled files
+*.tfstate
+*.tfstate.backup
+
+# Module directory
+.terraform/
+
+# Cache objects
+packer_cache/
