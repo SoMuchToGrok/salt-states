@@ -1,5 +1,0 @@
-master: salt.zerofox.com
-hash_type: sha256
-state_verbose: False
-state_output_diff: True
-renderer: jinja|yaml|gpg
