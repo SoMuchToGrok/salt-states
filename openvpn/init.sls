@@ -5,6 +5,7 @@ openvpn:
     - humanname: openvpn-apt-repo
     - name: deb http://build.openvpn.net/debian/openvpn/stable xenial main
     - file: /etc/apt/sources.list.d/openvpn-xenial.list
+    - clean_file: true
   pkg.installed:
     - require:
       - pkgrepo: openvpn
