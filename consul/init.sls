@@ -40,7 +40,7 @@ consul:
     - require:
       - user: consul
     - require_in:
-      - file: /etc/init/consul.conf
+      - file: /etc/systemd/system/consul.service
 
 /etc/consul.d:
   file.directory:
@@ -48,7 +48,7 @@ consul:
     - group: consul
     - mode: 750
     - require_in:
-      - file: /etc/init/consul.conf
+      - file: /etc/systemd/system/consul.service
     - require:
       - user: consul
 
