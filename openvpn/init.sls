@@ -40,6 +40,8 @@ openvpn:
     - watch:
       - pkg: openvpn
       - file: /etc/openvpn/server.conf
+      - cmd: /etc/openvpn/dh.pem
+      - cmd: /etc/openvpn/ta.key
 
 /etc/openvpn/server.conf:
   file.managed:
@@ -48,6 +50,8 @@ openvpn:
     - user: root
     - group: root
     - mode: 644
+    - require:
+      - pkg: openvpn
 
 /var/log/openvpn:
   file.directory:
@@ -62,3 +66,16 @@ openvpn:
     - user: root
     - group: root
     - mode: 644
+
+/etc/openvpn/dh.pem:
+  cmd.run:
+    - name: ./easyrsa gen-dh && mv pki/dh.pem /etc/openvpn/dh.pem
+    - cwd: /root/easy-rsa/easyrsa3
+    - unless: ls /etc/openvpn/dh.pem
+
+/etc/openvpn/ta.key:
+  cmd.run:
+    - name: openvpn --genkey --secret /etc/openvpn/ta.key
+    - unless: ls /etc/openvpn/ta.key
+    - require:
+      - pkg: openvpn
