@@ -1,3 +1,6 @@
+easy-rsa:
+  pkg.installed
+
 openvpn:
   cmd.run:
     - name: wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add -
