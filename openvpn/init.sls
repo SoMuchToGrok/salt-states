@@ -49,6 +49,13 @@ openvpn:
     - group: root
     - mode: 644
 
+/var/log/openvpn:
+  file.directory:
+    - user: root
+    - group: root
+    - require_in:
+      - file: /etc/openvpn/server.conf
+
 /etc/logrotate.d/openvpn:
   file.managed:
     - source: salt://openvpn/logrotate.conf
