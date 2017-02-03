@@ -9,7 +9,7 @@ Group=consul
 EnvironmentFile=-/etc/service/consul
 Environment=GOMAXPROCS=2
 Restart=on-failure
-ExecStart=/usr/local/bin/consul agent $OPTIONS -config-dir=/etc/consul.d >>/var/log/consul/consul.log 2>&1
+ExecStart=/usr/bin/consul agent $OPTIONS -config-dir=/etc/consul.d
 ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGINT
 
