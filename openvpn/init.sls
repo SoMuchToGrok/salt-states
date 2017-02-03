@@ -9,3 +9,11 @@ openvpn:
   pkg.installed:
     - require:
       - pkgrepo: openvpn
+      - file: /etc/apt/trusted.gpg.d/openvpn.gpg
+
+/etc/apt/trusted.gpg.d/openvpn.gpg:
+  file.managed:
+    - source: https://swupdate.openvpn.net/repos/repo-public.gpg
+    - user: root
+    - group: root
+    - mode: 644
