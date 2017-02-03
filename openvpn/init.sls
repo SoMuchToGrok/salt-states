@@ -7,6 +7,9 @@ ufw:
     - name: ufw
   service.running:
     - enable: True
+    - watch:
+      - file: /etc/default/ufw
+      - file: /etc/ufw/before.rules
   cmd.run:
     - name: |
         ufw allow OpenSSH
@@ -80,3 +83,17 @@ openvpn:
     - unless: ls /etc/openvpn/ta.key
     - require:
       - pkg: openvpn
+
+/etc/default/ufw:
+  file.managed:
+    - source: salt://openvpn/ufw_default
+    - user: root
+    - group: root
+    - mode: 644
+
+/etc/ufw/before.rules:
+  file.managed:
+    - source: salt://openvpn/ufw_before_rules
+    - user: root
+    - group: root
+    - mode: 644
