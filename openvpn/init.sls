@@ -10,7 +10,7 @@ ufw:
   cmd.run:
     - name: |
         ufw allow OpenSSH
-        sudo ufw enable
+        sudo ufw --force enable
     - runas: root
 
 easy-rsa:
