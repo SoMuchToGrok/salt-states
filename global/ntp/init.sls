@@ -1,8 +1,8 @@
 ntp:
-  pkg.installed
+  pkg.latest
 
 ntpdate:
-  pkg.installed
+  pkg.latest
 
 /etc/ntp.conf:
   file.managed:

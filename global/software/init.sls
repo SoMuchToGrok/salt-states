@@ -2,7 +2,7 @@ include:
   - global.htop
 
 iotop:
-  pkg.installed
+  pkg.latest
 
 git:
   pkgrepo.managed:
@@ -12,7 +12,7 @@ git:
     - humanname: git-ppa-trusty
     - name: deb http://ppa.launchpad.net/git-core/ppa/ubuntu xenial main
     - file: /etc/apt/sources.list.d/git-trusty.list
-  pkg.installed:
+  pkg.latest:
     - name: git
     - require:
       - pkgrepo: git

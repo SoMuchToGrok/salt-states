@@ -1,5 +1,5 @@
 htop:
-  pkg.installed
+  pkg.latest
 
 /root/.config/htop/htoprc:
     file.managed:
