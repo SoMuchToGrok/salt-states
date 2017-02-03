@@ -14,4 +14,3 @@ openvpn:
   pkg.installed:
     - require:
       - pkgrepo: openvpn
-      - file: /etc/apt/trusted.gpg.d/openvpn.gpg
