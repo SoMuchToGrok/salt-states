@@ -48,3 +48,10 @@ openvpn:
     - user: root
     - group: root
     - mode: 644
+
+/etc/logrotate.d/openvpn:
+  file.managed:
+    - source: salt://openvpn/logrotate.conf
+    - user: root
+    - group: root
+    - mode: 644
