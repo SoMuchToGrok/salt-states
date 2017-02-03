@@ -1,7 +1,7 @@
 easy-rsa:
   git.latest:
     - name: https://github.com/OpenVPN/easy-rsa.git
-    - target: /home/root
+    - target: /root/easy-rsa
     - user: root
 
 openvpn:
