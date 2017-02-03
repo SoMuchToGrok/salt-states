@@ -10,6 +10,7 @@ ufw:
   cmd.run:
     - name: |
         ufw allow OpenSSH
+        ufw allow 1194/udp
         sudo ufw --force enable
     - runas: root
 
