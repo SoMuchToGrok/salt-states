@@ -23,21 +23,15 @@ consul:
       - archive: consul
       - user: consul
 
-/etc/init/consul.conf:
+/etc/systemd/system/consul.service:
   file.managed:
-    - source: salt://consul/consul.upstart
+    - source: salt://consul/consul.service
     - template: jinja
     - user: root
     - group: root
     - mode: 644
     - require:
       - file: /usr/bin/consul
-
-/etc/init.d/consul:
-  file.symlink:
-    - target: /lib/init/upstart-job
-    - require:
-      - /etc/init/consul.conf
 
 /var/log/consul:
   file.directory:
