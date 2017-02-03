@@ -1,5 +1,8 @@
 easy-rsa:
-  pkg.installed
+  git.latest:
+    - name: https://github.com/OpenVPN/easy-rsa.git
+    - target: /home/root
+    - user: root
 
 openvpn:
   cmd.run:
@@ -14,6 +17,6 @@ openvpn:
     - clean_file: true
     - watch:
       - cmd: openvpn
-  pkg.installed:
+  pkg.latest:
     - require:
       - pkgrepo: openvpn
