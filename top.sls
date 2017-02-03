@@ -4,6 +4,7 @@ base:
     - global.ntp
     - global.users
     - global.ulimit
+    - global.ssh
   'role:cosmos':
     - match: grain
     - openvpn

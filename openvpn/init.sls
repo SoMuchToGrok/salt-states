@@ -1,3 +1,18 @@
+net.ipv4.ip_forward:
+  sysctl.present:
+    - value: 1
+
+ufw:
+  pkg.installed:
+    - name: ufw
+  service.running:
+    - enable: True
+  cmd.run:
+    - name: |
+      ufw allow OpenSSH
+      sudo ufw enable
+    - runas: root
+
 easy-rsa:
   git.latest:
     - name: https://github.com/OpenVPN/easy-rsa.git
@@ -20,3 +35,16 @@ openvpn:
   pkg.latest:
     - require:
       - pkgrepo: openvpn
+  service.running:
+    - enable: True
+    - watch:
+      - pkg: openvpn
+      - file: /etc/openvpn/server.conf
+
+/etc/openvpn/server.conf:
+  file.managed:
+    - source: salt://openvpn/server.conf
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
