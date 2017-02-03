@@ -9,8 +9,8 @@ ufw:
     - enable: True
   cmd.run:
     - name: |
-      ufw allow OpenSSH
-      sudo ufw enable
+        ufw allow OpenSSH
+        sudo ufw enable
     - runas: root
 
 easy-rsa:
