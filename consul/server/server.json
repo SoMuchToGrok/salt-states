@@ -1,0 +1,7 @@
+{
+    "server": true,
+    "disable_remote_exec": true,
+    "acl_datacenter": "cosmos",
+    "acl_master_token": "d7d075cd-a956-4897-a9da-530d420b24c0",
+    "data_dir": "/var/lib/consul/data"
+}
