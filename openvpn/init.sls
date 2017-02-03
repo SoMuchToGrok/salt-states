@@ -97,3 +97,23 @@ openvpn:
     - user: root
     - group: root
     - mode: 644
+
+/root/client-configs/files:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 700
+
+/root/client-configs/base.conf:
+  file.managed:
+    - source: salt://openvpn/base.conf
+    - user: root
+    - group: root
+    - mode: 700
+
+/root/client-configs/make_config.sh:
+  file.managed:
+    - source: salt://openvpn/make_config.sh
+    - user: root
+    - group: root
+    - mode: 700
