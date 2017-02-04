@@ -1,5 +1,5 @@
 {
     "start_join": [
-        "192.168.1.106"
+        "{{ salt['network.interfaces']()['enp3s0']['inet'][0]['address'] }}"
     ]
 }
