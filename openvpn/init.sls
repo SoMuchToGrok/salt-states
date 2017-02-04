@@ -7,6 +7,7 @@ openvpn-ufw:
     - name: ufw
   service.running:
     - enable: True
+    - name: openvpn
     - watch:
       - file: /etc/default/ufw
       - file: /etc/ufw/before.rules
