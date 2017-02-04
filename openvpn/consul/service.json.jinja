@@ -1,9 +1,9 @@
 {
     "service": {
         "name": "openvpn",
-        "tags": ["openvpn"],
         "checks": [
             {
+                "name": "Service Status",
                 "script": "/bin/check_openvpn",
                 "interval": "30s"
             }
