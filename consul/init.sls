@@ -65,6 +65,7 @@ consul-ufw:
   pkg.installed:
     - name: ufw
   service.running:
+    - name: ufw
     - enable: True
   cmd.run:
     - name: |
