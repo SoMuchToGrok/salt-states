@@ -1,0 +1,12 @@
+#!/bin/bash
+
+status=$(sudo systemctl status openvpn@server)
+echo "$status"
+
+running=$(echo $status | grep -c running)
+
+if [[ $running -eq 1 ]]; then
+    exit 0
+else
+    exit 1
+fi

@@ -12,6 +12,11 @@ consul:
   user.present:
     - home: /var/lib/consul
     - shell: /bin/false
+  group.present:
+    - members:
+        - consul
+    - require:
+      - user: consul
 
 /usr/bin/consul:
   file.managed:

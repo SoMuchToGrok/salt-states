@@ -1,0 +1,64 @@
+{% set nginx = pillar.get('nginx', {}) -%}
+{% set user = nginx.get('user', 'www-data') -%}
+{% set group = nginx.get('group', 'www-data') -%}
+user   {{ user }} {{ group }};
+worker_processes  {{ nginx.get('worker_processes', 'auto') }};
+{% if 'worker_rlimit_nofile' in nginx %}worker_rlimit_nofile {{ nginx.get('worker_rlimit_nofile') }};{% endif %}
+
+error_log /var/log/nginx/error.log warn;
+pid {{ nginx.get('pid', '/var/run/nginx.pid') }};
+daemon {{ nginx.get('daemon', 'off') }};
+
+events {
+    worker_connections {{ nginx.get('events', {}).get('worker_connections', 1024) }};
+}
+
+http {
+    {% if 'client_max_body_size' in nginx %}client_max_body_size {{ nginx.get('client_max_body_size') }};{% endif %}
+    {% if 'client_body_buffer_size' in nginx %}client_body_buffer_size {{ nginx.get('client_body_buffer_size') }};{% endif %}
+    {% if 'large_client_header_buffers' in nginx %}large_client_header_buffers {{ nginx.get('large_client_header_buffers') }};{% endif %}
+    {% if 'client_header_buffer_size' in nginx %}client_header_buffer_size {{ nginx.get('client_header_buffer_size') }};{% endif %}
+    include /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+    log_format detailed '$remote_addr - $remote_user [$time_local] "$request" $status $bytes_sent "$http_referer" "$http_user_agent" $request_time $gzip_ratio';
+    access_log /var/log/nginx/access.log detailed;
+    sendfile {{ nginx.get('sendfile', 'on') }};
+    #tcp_nopush on;
+    keepalive_timeout {{ nginx.get('keepalive_timeout', 65) }};
+    {% if 'keepalive_requests' in nginx %}keepalive_requests {{ nginx.get('keepalive_requests') }};{% endif %}
+    {% if 'tcp_nodelay' in nginx %}tcp_nodelay {{ nginx.get('tcp_nodelay') }};{% endif %}
+    server_names_hash_bucket_size {{ nginx.get('server_names_hash_bucket_size', 128) }};
+    server_names_hash_max_size {{ nginx.get('server_names_hash_max_size', 1024) }};
+    types_hash_max_size {{ nginx.get('types_hash_max_size', 8192) }};
+
+    gzip {{ nginx.get('gzip', 'on') }};
+    gzip_vary {{ nginx.get('gzip_vary', 'on') }};
+    gzip_proxied {{ nginx.get('gzip_proxied', 'any') }};
+    gzip_comp_level {{ nginx.get('gzip_comp_level', 6) }};
+    gzip_buffers {{ nginx.get('gzip_buffers', '16 8k') }};
+    gzip_http_version {{ nginx.get('gzip_http_version', '1.1') }};
+    gzip_types {{ nginx.get('gzip_types', ['text/plain', 'text/css', 'application/json', 'application/x-javascript', 'text/xml', 'application/xml', 'application/xml+rss', 'text/javascript'])|join(' ') }};
+    {% if 'gzip_disable' in nginx %}gzip_disable {{ nginx.get('gzip_disable') }};{% endif %}
+
+    real_ip_header X-Forwarded-For;
+    set_real_ip_from 0.0.0.0/0;
+
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Content-Type-Options nosniff;
+    # don't send the nginx version number in error pages and Server header
+    server_tokens off;
+
+{% if pillar['nginx'] is defined -%}
+{% if pillar['nginx']['redirect_numeric_ip']|default(False) %}
+    server {
+        server_name {% for ip in salt['network.interfaces']()['eth0']['inet'] %}{{ ip['address'] }}:80{% if not loop.last %} {% endif %}{% endfor %};
+        return 302 {{ pillar['nginx']['redirect_numeric_ip'] }};
+        access_log off;
+    }
+{% endif %}
+{% endif %}
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*.conf;
+
+}
