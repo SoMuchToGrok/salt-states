@@ -11,7 +11,7 @@ consul:
     - if_missing: /usr/bin/consul
   user.present:
     - home: /var/lib/consul
-    - shell: /bin/false
+    - shell: /bin/bash
   group.present:
     - members:
         - consul
