@@ -9,7 +9,7 @@ include:
     - group: root
     - require:
       - file: /etc/consul.d
-      - file: /bin/check_ipsec
+      - file: /bin/check_openvpn
       - file: /etc/sudoers.d/openvpn-consul
     - watch_in:
       - service: consul
