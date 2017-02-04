@@ -8,4 +8,4 @@ base:
   'role:cosmos':
     - match: grain
     - openvpn
-    - consul
+    - consul.server
