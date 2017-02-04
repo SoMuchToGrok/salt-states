@@ -60,3 +60,21 @@ consul:
     - group: root
     - require:
       - file: /etc/consul.d
+
+consul-ufw:
+  pkg.installed:
+    - name: ufw
+  service.running:
+    - enable: True
+  cmd.run:
+    - name: |
+        ufw allow 8300/tcp
+        ufw allow 8301/tcp
+        ufw allow 8301/udp
+        ufw allow 8302/tcp
+        ufw allow 8302/udp
+        ufw allow 8500/tcp
+        ufw allow 8600/tcp
+        ufw allow 8600/udp
+        sudo ufw --force enable
+    - runas: root

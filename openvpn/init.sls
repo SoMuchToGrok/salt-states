@@ -2,7 +2,7 @@ net.ipv4.ip_forward:
   sysctl.present:
     - value: 1
 
-ufw:
+openvpn-ufw:
   pkg.installed:
     - name: ufw
   service.running:
