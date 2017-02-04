@@ -9,7 +9,7 @@ Group=consul
 EnvironmentFile=-/etc/service/consul
 Environment=GOMAXPROCS=2
 Restart=on-failure
-ExecStart=/usr/bin/consul agent $OPTIONS -config-dir=/etc/consul.d -advertise={{ salt['network.interfaces']()['enp3s0']['inet'][0]['address'] }}
+ExecStart=/usr/bin/consul agent $OPTIONS -config-dir=/etc/consul.d -advertise={{ salt['network.interfaces']()['enp3s0']['inet'][0]['address'] }} -bootstrap-expect 1
 ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGINT
 
